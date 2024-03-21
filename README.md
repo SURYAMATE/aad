@@ -1,4 +1,4 @@
-# AppGuardian
+# AdminConsent
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://code.siemens.com/dsp-m2m-authentication/appguardian.git
+git remote add origin https://code.siemens.com/florian.burger.ext/AdminConsent.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://code.siemens.com/dsp-m2m-authentication/appguardian/-/settings/integrations)
+- [ ] [Set up project integrations](https://code.siemens.com/florian.burger.ext/AdminConsent/-/settings/integrations)
 
 ## Collaborate with your team
 

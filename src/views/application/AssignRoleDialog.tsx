@@ -1,0 +1,132 @@
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, styled } from "@mui/material"
+import SearchAppIdTextField from "@app/views/application/SearchAppIdTextField"
+import { Application, AppRole, AppRoleAssignment } from "@app/api/types"
+import React, { useEffect, useState } from "react"
+import MicrosoftGraph from "@app/api/MicrosoftGraph"
+
+const StyledDialog = styled(Dialog)({
+    "& .MuiDialog-paper": { width: "80%", maxHeight: 435 },
+    "& .MuiDialogTitle-root": {
+        display: "flex",
+        flexDirection: "column"
+    },
+    "& .MuiDialogContent-root": {
+        padding: 20
+    }
+})
+
+const StyledConsumer = styled("div")({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+
+    height: 220,
+    paddingTop: 40
+})
+
+interface State {
+    open: boolean
+    application?: Application
+    appRole?: AppRole
+    consumer?: Application
+    appRoleAssignment?: AppRoleAssignment
+    successful: boolean
+}
+
+interface Props {
+    open: boolean
+    application?: Application
+    appRole?: AppRole
+    onClose: () => void
+}
+
+export default function AssignRoleDialog({ open, application, appRole, onClose }: Props) {
+    const [state, setState] = useState<State>({
+        open,
+        application,
+        appRole,
+        consumer: undefined,
+        appRoleAssignment: undefined,
+        successful: false
+    })
+    useEffect(
+        () =>
+            setState({
+                open,
+                application,
+                appRole,
+                consumer: undefined,
+                appRoleAssignment: undefined,
+                successful: false
+            }),
+        [open, application, appRole]
+    )
+
+    const handleSelectConsumer = (app: Application, assignments: AppRoleAssignment[]) => {
+        setState((prevState) => ({
+            ...prevState,
+            consumer: app,
+            appRoleAssignment: assignments.find(({ appRoleId }) => appRoleId == appRole.id)
+        }))
+    }
+
+    const handleAssignRole = () => {
+        MicrosoftGraph.assignRole(application, state.consumer, appRole)
+            .then((response) => {
+                setState((prevState) => ({
+                    ...prevState,
+                    successful: true
+                }))
+            })
+            .catch((e) => {
+                console.log("remove", e)
+            })
+    }
+    const handleRemoveRole = () => {
+        MicrosoftGraph.removeAppRoleAssignment(state.consumer, state.appRoleAssignment)
+            .then((response) => {
+                setState((prevState) => ({
+                    ...prevState,
+                    successful: true
+                }))
+            })
+            .catch((e) => {
+                console.log("remove", e)
+            })
+    }
+
+    return (
+        <StyledDialog maxWidth="xs" open={open}>
+            <DialogTitle>
+                <strong>{state.appRole ? state.appRole.displayName : "---"}</strong>
+                <span>{state.appRole ? state.appRole.id : "---"}</span>
+            </DialogTitle>
+            <DialogContent dividers>
+                <SearchAppIdTextField onSelect={handleSelectConsumer} />
+                <StyledConsumer>
+                    {state.consumer && (
+                        <>
+                            <strong>{state.consumer.displayName}</strong>
+                            <span style={{ paddingBottom: 10 }}>{state.consumer.appId}</span>
+
+                            {state.successful ? (
+                                <span>done</span>
+                            ) : state.appRoleAssignment ? (
+                                <Button color="error" variant="contained" onClick={handleRemoveRole}>
+                                    remove role
+                                </Button>
+                            ) : (
+                                <Button color="primary" variant="contained" onClick={handleAssignRole}>
+                                    assign role
+                                </Button>
+                            )}
+                        </>
+                    )}
+                </StyledConsumer>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose}>Close</Button>
+            </DialogActions>
+        </StyledDialog>
+    )
+}

@@ -51,7 +51,20 @@ module.exports = {
             patterns: [
                 {
                     from: path.join(__dirname, "public"),
-                    to: "./"
+                    to: "./",
+                    globOptions: {
+                        ignore: [path.join(__dirname, "public/index.html")]
+                    }
+                },
+                {
+                    from: path.join(__dirname, "public/index.html"),
+                    to: "./",
+                    transform(content) {
+                        return content
+                            .toString()
+                            .replace(/^.*redirectUri:.*$/gm, '            redirectUri: "https://appguardian.industry.siemens.cloud/"')
+                            .replace("bundle.js", `bundle-${FILE_VERSION}.js`)
+                    }
                 }
             ]
         }),

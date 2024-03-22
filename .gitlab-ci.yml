@@ -1,7 +1,7 @@
 variables:
   AWS_ACCESS_KEY_ID: "${s3_access_key_id}"
   AWS_SECRET_ACCESS_KEY: "${s3_secret_access_key}"
-  AWS_DISTRIBUTION_ID: "E12SRK9Q9NVFYC"
+  AWS_DISTRIBUTION_ID: "E11TTMPGHORI0M"
   AWS_S3_BUCKET: "s3://appguardian/"
 
 cache:
@@ -18,7 +18,7 @@ Package:
   stage: package
   image: node:20-alpine
   script:
-    - npm ci
+    - npm install
     - npm run build:release
   only:
     - web

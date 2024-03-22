@@ -6,13 +6,20 @@ This project delivers a Frontend Application that integrates OAuth2 authenticati
 
 ## Technology Stack 
 
-The project is built using the following technologies:
+This project is based on a **single-page application (SPA) architecture**, with the frontend implemented using TypeScript and React. The application leverages OAuth2 for user authentication and authorization, enabling secure access to protected resources.
+Here you find a short summary: 
 
 | Technology     | Description                                                                                                    |
 |----------------|----------------------------------------------------------------------------------------------------------------|
 | **TypeScript** | A superset of JavaScript that adds static types to the language, enhancing code quality and maintainability.  |
 | **React**      | A JavaScript library for building user interfaces, offering a component-based architecture for efficient UI development. |
 | **AWS S3**     | Amazon Simple Storage Service (S3) provides scalable cloud storage for hosting static web assets like HTML, CSS, and JavaScript. |
+
+By leveraging TypeScript and React for frontend development and hosting the application on an AWS S3 bucket, the project benefits from type safety, efficient UI development, and reliable cloud hosting infrastructure.
+
+## Architecture
+This architecture deploys a frontend application built with TypeScript and React on AWS infrastructure. The React application is hosted on Amazon S3 for static website hosting, while Amazon CloudFront serves as a global content delivery network for distributing assets. HTTPS encryption is provided by AWS Certificate Manager, ensuring secure communication with users. This setup offers scalability, reliability, and cost-effectiveness, while TypeScript and React enhance developer productivity and flexibility in building modern user interfaces.
+![basicArchitecture.svg](doc%2FbasicArchitecture.svg)
 
 ## Getting Started
 

@@ -18,7 +18,9 @@ Package:
   stage: package
   image: node:20-alpine
   script:
-    - npm install
+    - npm config set http-proxy $CODE_PROXY_HOST
+    - npm config set https-proxy $CODE_PROXY_HOST
+    - npm ci
     - npm run build:release
   only:
     - web

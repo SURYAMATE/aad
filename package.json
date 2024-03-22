@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@code.siemens.com:prime/hosted/norm/norm-service-client.git"
+        "url": "git@code.siemens.com:dsp-m2m-authentication/appguardian.git"
     },
     "author": "valantic Supply Chain Excellence GmbH",
     "license": "MIT",

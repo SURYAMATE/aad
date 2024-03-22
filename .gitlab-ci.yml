@@ -18,11 +18,10 @@ Package:
   stage: package
   image: node:20-alpine
   script:
-    - npm config set proxy "http://${CODE_PROXY_HOST}"
-    - npm config set https-proxy "https://${CODE_PROXY_HOST}"
-    - npm set strict-ssl false
     - npm ci
     - npm run build:release
+  tags:
+    - AWS_OPTIN
   only:
     - web
 
@@ -34,6 +33,8 @@ Upload S3:
   script:
     - aws s3 rm $AWS_S3_BUCKET --recursive
     - aws s3 cp dist/ $AWS_S3_BUCKET --recursive
-    # - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
+  tags:
+    - AWS_OPTIN
   only:
     - web

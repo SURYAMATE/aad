@@ -51,24 +51,7 @@ module.exports = {
             patterns: [
                 {
                     from: path.join(__dirname, "public"),
-                    to: "./",
-                    globOptions: {
-                        ignore: [path.join(__dirname, "public/index.html")]
-                    }
-                },
-                {
-                    from: path.join(__dirname, "public/index.html"),
-                    to: path.join(__dirname, "../norm-service/src/main/resources/views/index.html"),
-                    transform(content) {
-                        return content
-                            .toString()
-                            .replace('<base href="/">', '<base th:href="${base_url}">')
-                            .replace(/^.*environment:.*$/gm, '    environment: "[[${environment}]]",')
-                            .replace(/^.*endpoint:.*$/gm, '    endpoint: "[[${endpoint}]]",')
-                            .replace(/^.*clientId:.*$/gm, '            clientId: "[[${oauth_client_id}]]",')
-                            .replace(/^.*redirectUri:.*$/gm, '            redirectUri: "[[${oauth_redirect_uri}]]"')
-                            .replace("bundle.js", `bundle-${FILE_VERSION}.js`)
-                    }
+                    to: "./"
                 }
             ]
         }),

@@ -16,23 +16,21 @@ stages:
 # Package
 Package:
   stage: package
-  image: node:16-alpine
-  before_script:
-    - apk add --no-cache python3 py3-pip make gcc g++
+  image: node:20-alpine
   script:
     - npm ci
-    - npm run build
+    - npm run build:release
   only:
     - web
 
 Upload S3:
   stage: upload
   image:
-    name: amazon/aws-cli:2.7.2
+    name: amazon/aws-cli:2.15.30
     entrypoint: [""]
   script:
     - aws s3 rm $AWS_S3_BUCKET --recursive
-    - aws s3 cp public/ $AWS_S3_BUCKET --recursive
+    - aws s3 cp dist/ $AWS_S3_BUCKET --recursive
     # - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
   only:
     - web

@@ -7,7 +7,7 @@ variables:
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - public
+    - dist
 
 stages:
   - package

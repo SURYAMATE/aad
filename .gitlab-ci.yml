@@ -20,6 +20,7 @@ Package:
   script:
     - npm config set proxy "http://${CODE_PROXY_HOST}"
     - npm config set https-proxy "http://${CODE_PROXY_HOST}"
+    - npm config set strict-ssl false
     - npm ci
     - npm run build:release
   only:

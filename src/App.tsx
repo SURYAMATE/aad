@@ -1,4 +1,4 @@
-import { IPublicClientApplication, PublicClientApplication } from "@azure/msal-browser"
+import { AuthenticationResult, IPublicClientApplication, PublicClientApplication } from "@azure/msal-browser"
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom"
 import React, { useEffect, useRef, useState } from "react"
 import AppConfig from "@app/AppConfig"
@@ -14,6 +14,21 @@ import axios from "axios"
 /* Views */
 import Layout from "@app/views/Layout"
 
+const getAccessToken = (instance: IPublicClientApplication) => {
+    return new Promise<AuthenticationResult>((resolve, reject) => {
+        instance
+            .acquireTokenSilent({
+                scopes: AppConfig.scopes
+            })
+            .then((tokenResponse) => {
+                axios.defaults.headers.common["Authorization"] = `Bearer ${tokenResponse.accessToken}`
+
+                resolve(tokenResponse)
+            })
+            .catch(reject)
+    })
+}
+
 /* Lazy Loading */
 const Login = React.lazy(() => import("./pages/Login")),
     Dashboard = React.lazy(() => import("./pages/Dashboard")),
@@ -23,29 +38,18 @@ const Login = React.lazy(() => import("./pages/Login")),
 const Router = () => {
     const isAuthenticated = useIsAuthenticated()
     const { instance, accounts } = useMsal()
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-    const getAccessToken = (instance: IPublicClientApplication) => {
-        return new Promise<string>((resolve, reject) => {
-            instance
-                .acquireTokenSilent({
-                    scopes: AppConfig.scopes
-                })
-                .then((tokenResponse) => {
-                    axios.defaults.headers.common["Authorization"] = `Bearer ${tokenResponse.accessToken}`
-                })
-                .catch((error) => console.log(error))
-        })
-    }
+    const [hasAccessToken, setHasAccessToken] = useState<boolean>(false)
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     useEffect(() => {
         if (isAuthenticated) {
             instance.setActiveAccount(accounts[0])
 
-            getAccessToken(instance)
+            getAccessToken(instance).then(() => setHasAccessToken(true))
 
-            // Get a new refresh token after 30 minutes
-            const milliseconds = 30 * 60 * 1000
+            // Get a new refresh token after 60 minutes
+            const milliseconds = 60 * 60 * 1000
             const interval = setInterval(() => getAccessToken(instance), milliseconds)
             intervalRef.current = interval
 
@@ -54,6 +58,10 @@ const Router = () => {
             }
         }
     }, [])
+
+    if (!hasAccessToken) {
+        return null
+    }
 
     return (
         <BrowserRouter basename="/">
@@ -70,7 +78,6 @@ const Router = () => {
 }
 
 const Unauthenticated = () => {
-    const isAuthenticated = useIsAuthenticated()
     const { instance } = useMsal()
 
     useEffect(() => {

@@ -11,7 +11,7 @@ export default {
     date: "__APPCONFIG_DATE__",
     version: "__APPCONFIG_VERSION__",
 
-    scopes: ["Directory.Read.All", "AppRoleAssignment.ReadWrite.All"],
+    scopes: [".default"],
     msalConfig: {
         auth: {
             clientId: "",

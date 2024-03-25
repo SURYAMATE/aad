@@ -1,4 +1,5 @@
 variables:
+  NPM_PROXY: "http://194.145.60.1:9400"
   AWS_ACCESS_KEY_ID: "${s3_access_key_id}"
   AWS_SECRET_ACCESS_KEY: "${s3_secret_access_key}"
   AWS_DISTRIBUTION_ID: "E11TTMPGHORI0M"
@@ -18,8 +19,8 @@ Package:
   stage: package
   image: node:20-alpine
   script:
-    - npm config set proxy http://194.145.60.1:9400
-    - npm config set https-proxy http://194.145.60.1:9400
+    - npm config set proxy ${NPM_PROXY}
+    - npm config set https-proxy ${NPM_PROXY}
     - npm config set strict-ssl false
     - npm install
     - npm run build:release
@@ -35,7 +36,5 @@ Upload S3:
     - aws s3 rm $AWS_S3_BUCKET --recursive
     - aws s3 cp dist/ $AWS_S3_BUCKET --recursive
     - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
-  tags:
-    - AWS_OPTIN
   only:
     - web

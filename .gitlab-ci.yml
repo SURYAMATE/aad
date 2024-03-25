@@ -18,10 +18,10 @@ Package:
   stage: package
   image: node:20-alpine
   script:
+    - npm config set proxy "http://${CODE_PROXY_HOST}"
+    - npm config set https-proxy "http://${CODE_PROXY_HOST}"
     - npm ci
     - npm run build:release
-  tags:
-    - AWS_OPTIN
   only:
     - web
 

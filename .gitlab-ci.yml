@@ -1,6 +1,7 @@
 variables:
   HTTP_PROXY: "http://194.145.60.1:9400"
   HTTPS_PROXY: "http://194.145.60.1:9400"
+  NO_PROXY: 127.0.0.1,localhost,.siemens.de,.siemens.net,.siemens.io,.siemens.com
   AWS_ACCESS_KEY_ID: "${s3_access_key_id}"
   AWS_SECRET_ACCESS_KEY: "${s3_secret_access_key}"
   AWS_DISTRIBUTION_ID: "E11TTMPGHORI0M"

@@ -21,8 +21,11 @@ Package:
     - npm config set proxy "http://${CODE_PROXY_HOST}"
     - npm config set https-proxy "http://${CODE_PROXY_HOST}"
     - npm config set strict-ssl false
+    - npm config set registry https://code.siemens.com/api/v4/projects/202623/packages/npm/
     - npm ci
     - npm run build:release
+  tags:
+    - AWS_OPTIN
   only:
     - web
 

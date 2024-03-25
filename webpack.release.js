@@ -62,7 +62,7 @@ module.exports = {
                     transform(content) {
                         return content
                             .toString()
-                            .replace(/^.*redirectUri:.*$/gm, '            redirectUri: "https://d2806xo6wk8w8l.cloudfront.net/index.html"')
+                            .replace(/^.*redirectUri:.*$/gm, '            redirectUri: "https://d2806xo6wk8w8l.cloudfront.net"')
                             .replace("bundle.js", `bundle-${FILE_VERSION}.js`)
                     }
                 }

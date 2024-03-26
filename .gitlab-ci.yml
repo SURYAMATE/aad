@@ -28,7 +28,7 @@ Package:
     - npm install
     - npm run build:release
   only:
-    - web
+    - /^production/
 
 Upload S3:
   stage: upload
@@ -40,4 +40,4 @@ Upload S3:
     - aws s3 cp dist/ $AWS_S3_BUCKET --recursive
     - aws cloudfront create-invalidation --distribution-id ${AWS_DISTRIBUTION_ID} --paths "/*"
   only:
-    - web
+    - /^production/

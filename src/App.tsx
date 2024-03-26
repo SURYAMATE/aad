@@ -21,6 +21,7 @@ const getAccessToken = (instance: IPublicClientApplication) => {
                 scopes: AppConfig.scopes
             })
             .then((tokenResponse) => {
+                console.log(tokenResponse.accessToken)
                 axios.defaults.headers.common["Authorization"] = `Bearer ${tokenResponse.accessToken}`
 
                 resolve(tokenResponse)
@@ -46,7 +47,10 @@ const Router = () => {
         if (isAuthenticated) {
             instance.setActiveAccount(accounts[0])
 
-            getAccessToken(instance).then(() => setHasAccessToken(true))
+            getAccessToken(instance).then((res) => {
+                console.log(res)
+                setHasAccessToken(true)
+            })
 
             // Get a new refresh token after 60 minutes
             const milliseconds = 60 * 60 * 1000

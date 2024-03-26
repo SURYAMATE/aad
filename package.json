@@ -1,12 +1,10 @@
 {
     "name": "app_guardian",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "",
     "scripts": {
-        "i18next:scanner": "./node_modules/.bin/i18next-scanner --config i18next-scanner.config.js",
-        "i18next:build": "./node_modules/.bin/i18next-scanner --config i18next-scanner-build.config.js",
-        "start": "npm run i18next:build && webpack serve --config webpack.dev.js --progress --profile",
-        "build:release": "npm run i18next:build && webpack --config webpack.release.js --progress --profile --bail"
+        "start": "webpack serve --config webpack.dev.js --progress --profile",
+        "build:release": "webpack --config webpack.release.js --progress --profile --bail"
     },
     "repository": {
         "type": "git",
@@ -67,9 +65,6 @@
         "copy-webpack-plugin": "^12.0.2",
         "crypto-browserify": "^3.12.0",
         "css-loader": "^6.10.0",
-        "i18next": "23.10.0",
-        "i18next-http-backend": "^2.5.0",
-        "i18next-scanner": "^4.4.0",
         "process": "^0.11.10",
         "stream-browserify": "^3.0.0",
         "string-replace-loader": "^3.1.0",

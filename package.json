@@ -1,6 +1,6 @@
 {
     "name": "app_guardian",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "scripts": {
         "start": "webpack serve --config webpack.dev.js --progress --profile",

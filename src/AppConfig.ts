@@ -11,7 +11,7 @@ export default {
     date: "__APPCONFIG_DATE__",
     version: "__APPCONFIG_VERSION__",
 
-    scopes: ["https://graph.microsoft.com/.default"],
+    scopes: ["User.Read", "User.ReadBasic.All"],
     msalConfig: {
         auth: {
             clientId: "",

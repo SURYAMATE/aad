@@ -31,7 +31,7 @@ export default abstract class MicrosoftGraph {
         return new Promise((resolve, reject) => {
             axios
                 .delete<{ value: AppRoleAssignment[] }>(
-                    `${endpoint}//servicePrincipals(appId='${application.appId}')/appRoleAssignments/${appRoleAssignment.id}`
+                    `${endpoint}/servicePrincipals(appId='${application.appId}')/appRoleAssignments/${appRoleAssignment.id}`
                 )
                 .then(({ data }) => resolve(data.value))
                 .catch(reject)

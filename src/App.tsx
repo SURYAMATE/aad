@@ -72,6 +72,7 @@ const Router = () => {
             <Routes>
                 <Route element={<Layout />}>
                     <Route path="/" element={<Navigate replace to="/dashboard" />} />
+                    <Route path="/index.html" element={<Navigate replace to="/dashboard" />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/dashboard/:appId" element={<PageApplication />} />
                     <Route path="/*" element={<NotFound />} />

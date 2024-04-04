@@ -1,3 +1,13 @@
+# Table of Contents
+
+- [Project Name](#project-name)
+   - [Overview](#overview)
+   - [Technology Stack](#technology-stack)
+   - [Architecture](#architecture)
+   - [Getting Started](#getting-started)
+   - [Basic Process Overview](#basic-process-overview)
+   - [Contributors](#contributors)
+
 # Project Name
 
 ## Overview
@@ -19,7 +29,12 @@ By leveraging TypeScript and React for frontend development and hosting the appl
 
 ## Architecture
 This architecture deploys a frontend application built with TypeScript and React on AWS infrastructure. The React application is hosted on Amazon S3 for static website hosting, while Amazon CloudFront serves as a global content delivery network for distributing assets. HTTPS encryption is provided by AWS Certificate Manager, ensuring secure communication with users. This setup offers scalability, reliability, and cost-effectiveness, while TypeScript and React enhance developer productivity and flexibility in building modern user interfaces.
+
 ![basicArchitecture.svg](doc%2FbasicArchitecture.svg)
+
+## Backend Authentication and Authorization Process
+How to use permissions granted by custom roles in Microsoft Entra ID to address your application management needs? In Microsoft Entra ID, you can delegate Application creation and management permissions. 
+
 
 ## Getting Started
 
@@ -66,7 +81,11 @@ The core functionality of the application is implemented in the App.tsx file. He
 
 ## Contributors
 
-Florian Burger (Valantic) - Development
-Daniel Faber - Architecture and Technical Process 
-Sven Legl - Architecture and Technical Process
+| Contact                       | Function                           |
+|-------------------------------|------------------------------------|
+| **Florian Burger (Valantic)** | Development                        |
+| **Daniel Faber**              | Architecture and Technical Process |
+| **Sven Legl**                 | Architecture and Technical Process |
+
+
 

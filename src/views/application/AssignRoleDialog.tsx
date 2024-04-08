@@ -3,6 +3,7 @@ import SearchAppIdTextField from "@app/views/application/SearchAppIdTextField"
 import { Application, AppRole, AppRoleAssignment } from "@app/api/types"
 import MicrosoftGraph from "@app/api/MicrosoftGraph"
 import React, { useEffect, useState } from "react"
+import AssignRolePdf from "./AssignRolePdf"
 import color from "color"
 
 const StyledDialog = styled(Dialog)({
@@ -41,6 +42,7 @@ interface State {
     appRole?: AppRole
     consumer?: Application
     appRoleAssignment?: AppRoleAssignment
+    showPdf?: boolean
     successful: boolean
     error?: string
 }
@@ -71,6 +73,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                 consumer: undefined,
                 appRoleAssignment: undefined,
                 successful: false,
+                showPdf: false,
                 error: undefined
             }),
         [open, application, appRole]
@@ -82,6 +85,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
             consumer: app,
             appRoleAssignment: assignments.find(({ appRoleId }) => appRoleId == appRole.id),
             successful: false,
+            showPdf: false,
             error: undefined
         }))
     }
@@ -92,6 +96,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                 setState((prevState) => ({
                     ...prevState,
                     successful: true,
+                    showPdf: true,
                     error: undefined
                 }))
             )
@@ -99,6 +104,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                 setState((prevState) => ({
                     ...prevState,
                     successful: false,
+                    showPdf: false,
                     error: `You must be the owner of the EntraID application "${application.displayName}"`
                 }))
             )
@@ -109,6 +115,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                 setState((prevState) => ({
                     ...prevState,
                     successful: true,
+                    showPdf: false,
                     error: undefined
                 }))
             )
@@ -116,6 +123,7 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                 setState((prevState) => ({
                     ...prevState,
                     successful: false,
+                    showPdf: false,
                     error: `You must be the owner of the EntraID application "${application.displayName}"`
                 }))
             )
@@ -141,7 +149,13 @@ export default function AssignRoleDialog({ open, application, appRole, onClose }
                                     <span>{state.error}</span>
                                 </StyledError>
                             ) : state.successful ? (
-                                <span>done</span>
+                                <>
+                                    <span>done</span>
+                                    <span>{state.showPdf}</span>
+                                    {state.showPdf && (
+                                        <AssignRolePdf application={state.application} consumer={state.consumer} appRole={state.appRole} />
+                                    )}
+                                </>
                             ) : state.appRoleAssignment ? (
                                 <Button color="error" variant="contained" onClick={handleRemoveRole}>
                                     remove role

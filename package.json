@@ -19,6 +19,7 @@
         "@mui/material": "^5.15.14",
         "@mui/styled-engine-sc": "^5.14.12",
         "@mui/system": "^5.15.14",
+        "@react-pdf/renderer": "^3.4.2",
         "@reduxjs/toolkit": "^2.2.3",
         "axios": "^1.6.8",
         "clipboard-copy": "^4.0.1",

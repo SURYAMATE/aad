@@ -21,7 +21,6 @@ const getAccessToken = (instance: IPublicClientApplication) => {
                 scopes: AppConfig.scopes
             })
             .then((tokenResponse) => {
-                console.log(tokenResponse.accessToken)
                 axios.defaults.headers.common["Authorization"] = `Bearer ${tokenResponse.accessToken}`
 
                 resolve(tokenResponse)
@@ -48,7 +47,6 @@ const Router = () => {
             instance.setActiveAccount(accounts[0])
 
             getAccessToken(instance).then((res) => {
-                console.log(res)
                 setHasAccessToken(true)
             })
 

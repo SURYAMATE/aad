@@ -6,7 +6,7 @@ This guide explains how to organize and create roles in EntraID for using Authen
 
 ## Process Diagram
 
-![ConsumerHighLevelProcess.svg](doc%2FConsumerHighLevelProcess.svg)
+![OverallHighLevelProcess.svg](doc%2FOverallHighLevelProcess.svg)
 
 ## Consumer Prerequisites
 

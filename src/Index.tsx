@@ -4,11 +4,9 @@ import GlobalStyles from "@app/theme/GlobalStyles"
 import { createRoot } from "react-dom/client"
 import { ThemeProvider } from "@mui/material"
 import Theme from "@app/theme/MaterialTheme"
-import HttpApi from "i18next-http-backend"
 import React, { StrictMode } from "react"
 import { Provider } from "react-redux"
 import store from "@app/store/store"
-import i18next from "i18next"
 import moment from "moment"
 import App from "./App"
 
@@ -20,35 +18,18 @@ class GraphClient {
         AppConfig.msalConfig.auth.authority = options.msalConfig.auth.authority
         AppConfig.msalConfig.auth.redirectUri = options.msalConfig.auth.redirectUri
 
-        i18next.use(HttpApi).init(
-            {
-                fallbackLng: ["en"],
-                debug: false,
-                returnEmptyString: false,
-                backend: {
-                    loadPath: `locales/{{lng}}-${AppConfig.version.replace(/\./g, "")}.json`
-                },
-                interpolation: {
-                    escapeValue: false, // not needed for react!!
-                    formatSeparator: ","
-                }
-            },
-            () => {
-                const root = createRoot(document.getElementById("app") as Element)
-
-                root.render(
-                    <StrictMode>
-                        <StyledEngineProvider injectFirst>
-                            <ThemeProvider theme={Theme}>
-                                <Provider store={store}>
-                                    <GlobalStyles />
-                                    <App />
-                                </Provider>
-                            </ThemeProvider>
-                        </StyledEngineProvider>
-                    </StrictMode>
-                )
-            }
+        const root = createRoot(document.getElementById("app") as Element)
+        root.render(
+            <StrictMode>
+                <StyledEngineProvider injectFirst>
+                    <ThemeProvider theme={Theme}>
+                        <Provider store={store}>
+                            <GlobalStyles />
+                            <App />
+                        </Provider>
+                    </ThemeProvider>
+                </StyledEngineProvider>
+            </StrictMode>
         )
     }
 }

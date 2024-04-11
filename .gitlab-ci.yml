@@ -1,4 +1,7 @@
 variables:
+  HTTP_PROXY: "http://194.145.60.1:9400"
+  HTTPS_PROXY: "http://194.145.60.1:9400"
+  NO_PROXY: 127.0.0.1,localhost,.siemens.de,.siemens.net,.siemens.io,.siemens.com
   AWS_ACCESS_KEY_ID: "${s3_access_key_id}"
   AWS_SECRET_ACCESS_KEY: "${s3_secret_access_key}"
   AWS_DISTRIBUTION_ID: "E11TTMPGHORI0M"
@@ -17,13 +20,15 @@ stages:
 Package:
   stage: package
   image: node:20-alpine
+  before_script:
+    - npm config set proxy ${HTTP_PROXY}
+    - npm config set https-proxy ${HTTPS_PROXY}
+    - npm config set strict-ssl false
   script:
-    - npm ci
+    - npm install
     - npm run build:release
-  tags:
-    - AWS_OPTIN
   only:
-    - web
+    - /^production/
 
 Upload S3:
   stage: upload
@@ -33,8 +38,6 @@ Upload S3:
   script:
     - aws s3 rm $AWS_S3_BUCKET --recursive
     - aws s3 cp dist/ $AWS_S3_BUCKET --recursive
-    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
-  tags:
-    - AWS_OPTIN
+    - aws cloudfront create-invalidation --distribution-id ${AWS_DISTRIBUTION_ID} --paths "/*"
   only:
-    - web
+    - /^production/

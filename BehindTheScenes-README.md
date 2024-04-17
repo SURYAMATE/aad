@@ -1,4 +1,4 @@
-## Technical Integration Process for Authentication and Authorization via Electron Frontend App using GraphExplorer APIs
+## Technical Integration Process for Authentication and Authorization using GraphExplorer APIs
 
 ### Overview
 This document outlines the technical integration process for enabling Authentication and Authorization within an Electron frontend application using Microsoft Graph Explorer APIs. The process involves steps for user authentication, retrieving application details, managing roles, and assigning roles to specific applications.

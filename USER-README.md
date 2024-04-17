@@ -6,7 +6,7 @@ This guide explains how to organize and create roles in EntraID for using Authen
 
 ## Process Diagram
 
-![OverallHighLevelProcess.svg](doc%2FOverallHighLevelProcess.svg)
+![OverallAuthProcess.svg](doc%2FOverallAuthProcess.svg)
 
 ## Consumer Prerequisites
 
@@ -24,8 +24,8 @@ Before assigning specific roles in EntraID, it is essential to ensure that the c
     - Configure the necessary settings and permissions for your application within Azure AD.
 
 
-3. **Communicate App ID via TiMA:**
-    - Once the app integration is set up and configured, communicate the generated App ID via TiMA (Siemens internal messaging system) to the respective service or team responsible for assigning specific rights.
+3. **Communicate App ID:**
+    - Once the app integration is set up and configured, communicate the generated App ID to the respective service or team responsible for assigning specific rights.
     - This App ID will be used to link your application with the specific roles and permissions required for your use case.
 
 For more detailed information on the registration process and configuration steps, please refer to the [official documentation](https://wiki.siemens.com/pages/viewpage.action?pageId=386471116).
@@ -42,6 +42,7 @@ Before assigning specific roles in EntraID, it is essential to ensure that the p
    - Visit the [Self-Service Portal](https://myadpro-services.siemens.com/applications).
    - Follow the instructions provided to create a new app integration for your application.
 
+For more detailed information on the registration process and configuration steps, please refer to the [official documentation](https://wiki.siemens.com/pages/viewpage.action?pageId=386471116).
 
 2. **Configure Your App Integration in Azure AD:**
    - After creating the app integration in the Self-Service Portal, proceed to configure it in Azure AD.

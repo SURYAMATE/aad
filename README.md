@@ -14,6 +14,9 @@
 
 This project delivers a Frontend Application that integrates OAuth2 authentication against our EntraID Integration. Upon successful login, users can grant other applications access to their own services based on role and scopes approaches.
 
+#### Auth Process in a Nutshell
+![HighLevelAuthProcess.svg](doc%2FHighLevelAuthProcess.svg)
+
 ## Technology Stack 
 
 This project is based on a **single-page application (SPA) architecture**, with the frontend implemented using TypeScript and React. The application leverages OAuth2 for user authentication and authorization, enabling secure access to protected resources.
